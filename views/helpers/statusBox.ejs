@@ -1,0 +1,23 @@
+<% selectBox = (name, obj, className, key = null)=> {
+%>
+    <select name="<%= name%>" class="<%= className%>" data-style="py-0" required="required">
+<%
+    obj.forEach((value) => {
+        if(key === value.value) {
+            %>
+                <option value="<%= value.value%>" selected="selected"><%= value.name%></option>
+            <%
+        }
+        else
+        {
+            %>
+                <option value="<%= value.value%>" ><%= value.name%></option>
+            <%
+        }
+%>
+<%
+    })
+%>
+    </select>
+<%
+} %>

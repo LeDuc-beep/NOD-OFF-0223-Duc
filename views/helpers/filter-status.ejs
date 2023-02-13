@@ -1,0 +1,15 @@
+<% filterStatusHelper = (statusFilter, searchValue) => { %>
+  <% statusFilter.forEach((value) => {
+    let link = "/admin/items/status/" + value.value;
+    if(searchValue !== "")
+    {
+      link += "?search=" + searchValue;
+    }
+  %>
+    <a href=<%= link %>>
+      <button type="button" class="btn <%= value.class %>">
+        <%= value.name %> (<%= value.count %>)
+      </button>
+    </a>
+    <% }) %>
+<% } %>

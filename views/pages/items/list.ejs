@@ -1,0 +1,225 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h4 class="mb-3">Product List</h4>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">DataTables</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="col-lg-12">
+            <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
+                <div>
+                    <% if(Object.keys(message).length > 0)  {%>
+                        <h4 class="mb-3 d-block bg-gradient-green pt-2 pb-2 pr-2 "><%= message %></h4>
+                    <%}%>
+                    <% include ./../../helpers/filter-status.ejs %>
+                    <% filterStatusHelper(statusFilter, searchValue) %>
+                    <form action="/admin/items<%= statusPath %>" method="get" name="listItemSearch">
+                        <div class="input-group mt-3">
+                            <div class="form-outline">
+                                <input type="search" id="form1" class="form-control" name="search" value="<%= searchValue %>"/>
+                            </div>
+                            <button type="submit" class="btn btn-primary mx-2" >
+                                <i class="fas fa-search"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger">
+                                <i><a href="/admin/items<%= statusPath %>" class="fas fa-window-close"></a></i>
+                            </button>
+                        </div>
+                    </form>
+            </div>
+            <div>
+                <a href="/admin/items/form" class="btn btn-primary add-list"><i class="las la-plus mr-2"></i>Add Product</a>
+            </div>
+        </div>
+        <form action="/admin/items/multipleAction" method="post" name="multipleForm">
+            <div class="col-lg-12">
+                <select class="form-select mx-auto mb-4" aria-label="Default select example"  name="action">
+                    <option value="">Select action</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="delete">Delete</option>
+                    <option value="changeOrdering">Change ordering</option>
+                </select>
+                <button type="submit" class="btn btn-primary disabled" id="buttonSubmitAll">Submit</button>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">DataTable with default features</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <div class="checkbox d-inline-block">
+                                                <input type="checkbox" class="checkbox-input" id="checkAll">
+                                                <label for="checkbox1" class="mb-0"></label>
+                                            </div>
+                                        </th>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Status(s)</th>
+                                        <th>Ordering</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <% include ./../../helpers/status.ejs %>
+                                    <% items.forEach((value,index) => { %>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox d-inline-block">
+                                                <input type="checkbox" class="checkbox-input" name="checkItem" value="<%= value.id%>">
+                                            </div>
+                                        </td>
+                                        <td><%= index + 1 %></td>
+                                        <td><%= value.name %></td>
+                                        <td> <%= statusHelper(value.status, "items",value.id) %></td>
+                                        <td><input type="text" value="<%= value.ordering %>" class="ordering"></td>
+                                        <td>
+                                            <button type="button" class="btn btn-success mr-4">
+                                                <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
+                                                   href="/admin/items/form/<%= value.id %>" class="text-white">
+                                                    Edit
+                                                </a>
+                                            </button>
+                                            <button type="button" class="btn btn-danger mr-4">
+                                                <a id="aa" data-id = "<%= value.id %>"  title="" data-original-title="Delete"
+                                                   href="#" data-bs-toggle="modal"  data-bs-target="#exampleModal"
+                                                   class="text-white">
+                                                    Delete
+                                                </a>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <% })  %>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>Rendering engine</th>
+                                        <th>Browser</th>
+                                        <th>Platform(s)</th>
+                                        <th>Engine version</th>
+                                        <th>CSS grade</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+        </form>
+        </div>
+            <div class="col-12">
+                <% include ./../../helpers/pagination.ejs %>
+                <%- paginationHelper(pagination,"items",searchValue,statusPath) %>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+
+</section>
+<!-- /.content -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Item</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure want to delete this ITEM?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="buttonDeleted" class="btn btn-primary">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form name="deletedForm" method="post" action="">
+</form>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let deletedID;
+        let btnDeleted = document.getElementById('buttonDeleted');
+        let deleteForm = document.forms['deletedForm'];
+        let submitAllForm = document.forms['multipleForm'];
+        let btnCheckAll = $('#checkAll');
+        let btnCheck    = $('input[name="checkItem"]');
+        let btnSubmitAll = $('#buttonSubmitAll');
+        let isChecked;
+
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            let button = $(event.relatedTarget) // Button that triggered the modal
+            deletedID = button.data('id');
+        });
+
+        btnDeleted.onclick = () => {
+            deleteForm.action = '/admin/items/' + deletedID + '?_method=DELETE';
+            deleteForm.submit();
+        }
+
+        // button check all has been checked
+        btnCheckAll.change(function (){
+            isChecked = btnCheckAll.prop('checked');
+            if(isChecked === false){
+                $('input[class="ordering"]').removeAttr('name');
+            }
+            else {
+                $('input[class="ordering"]').attr('name', 'ordering');
+            }
+            btnCheck.prop('checked',isChecked);
+            disableSubmit();
+
+        })
+
+        btnCheck.change(function () {
+            let orderCheck = $(this).is(':checked');
+            if(orderCheck === true)
+            {
+                console.log("===");
+                $(this).parent('div').parent("td").parent("tr").find('.ordering').attr('name','ordering');
+            }
+            else {
+                $(this).parent('div').parent("td").parent("tr").find('.ordering').removeAttr('name');
+            }
+            isChecked = ($('input[name = "checkItem"]:checked').length === btnCheck.length);
+            btnCheckAll.prop('checked',isChecked);
+            disableSubmit();
+        })
+
+        function disableSubmit() {
+            isChecked= ($('input[name="checkItem"]:checked').length);
+            if(isChecked > 0)
+            {
+                btnSubmitAll.removeClass("disabled");
+            }
+            else{
+                btnSubmitAll.addClass(("disabled"));
+            }
+        }
+    })
+</script>

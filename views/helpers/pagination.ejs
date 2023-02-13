@@ -1,0 +1,44 @@
+<%   paginationHelper = (pagination,type,searchValue,statusPath) =>  {
+    let entriesStart = ((pagination.currentPages-1)*pagination.totalItemsPerpage) + 1;
+    let entriesEnd   = entriesStart + pagination.totalItemsPerpage - 1 ;
+    entriesEnd  = (entriesEnd > pagination.countItems)?pagination.countItems:entriesEnd;
+    let linkPagination = '/admin/'+ type + "/" + statusPath +(searchValue)?`?search=${searchValue}&`:"?";
+    let startAndPreviousClass = (pagination.currentPages === 1)?"disabled":"";
+    let nextAndEndClass = (pagination.currentPages === pagination.totalPages)?"disabled":"";
+    let pageNumbers = "";
+    let min = pagination.currentPages - Math.ceil(pagination.pageRange/2) + 1;
+    if(min < 1){
+        min = 1;
+    }
+    let max = min + pagination.pageRange - 1;
+    if(max > pagination.totalPages)
+    {
+        max = pagination.totalPages;
+        min = ((max - pagination.pageRange + 1) < 1)?1:max-pagination.pageRange+1;
+    }
+    for(let i = min; i <= max; i++)
+    {
+        let currentPagePositionClass = (pagination.currentPages === i )?"active":"";
+        pageNumbers += `<li class="page-item ${currentPagePositionClass}"><a class="page-link" href="${linkPagination}page=${i}">${i}</a></li>`;
+    }
+    return ` <div class="row mx-0 font-weight-normal  ">
+                <p class="">Showing ${entriesStart} to ${entriesEnd} of ${pagination.countItems} entries</p>
+            </div>
+            <div class="row mx-0 ">
+                <p class= "  ">Total entries: ${pagination.countItems}</p>
+            </div>
+            <div class="row mx-0">
+                <p class="">Total pages: ${pagination.totalPages} </p>
+            </div>
+          <div class="row justify-content-end mr-0">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination ">
+                    <li class="page-item ${startAndPreviousClass}"><a class="page-link" href="${linkPagination}page=1">start</a></li>
+                    <li class="page-item ${startAndPreviousClass}"><a class="page-link" href="${linkPagination}page=${pagination.currentPages-1}">Previous</a></li>
+                    ${pageNumbers}
+                    <li class="page-item ${nextAndEndClass}"><a class="page-link" href="${linkPagination}page=${pagination.currentPages+1}">Next</a></li>
+                    <li class="page-item ${nextAndEndClass}"><a class="page-link" href="${linkPagination}page=${pagination.totalPages}">End</a></li>
+                </ul>
+            </nav>
+          </div>`
+} %>

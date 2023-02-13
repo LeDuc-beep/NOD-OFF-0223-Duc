@@ -1,0 +1,11 @@
+<% statusHelper = (status,type,id) => {
+  let link = `/admin/${type}/changeStatus/${id}/${status}`;
+%>
+  <a href="<%= link %>">
+    <% if(status === "active") { %>
+          <button type="button" class="btn btn-success custom" name="activeBtn">active</button>
+    <% } else if (status === "inactive") { %>
+          <button type="button" class="btn btn-warning custom" name="inactiveBtn">Inactive</button>
+    <% } %>
+  </a>
+<% } %>

@@ -1,4 +1,3 @@
-<!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -71,10 +70,13 @@
                                                 <label for="checkbox1" class="mb-0"></label>
                                             </div>
                                         </th>
+                                        <% include ./../../helpers/sort-list.ejs %>
                                         <th>#</th>
-                                        <th>Name</th>
-                                        <th>Status(s)</th>
-                                        <th>Ordering</th>
+                                        <%- sortHelper('name','name',1,sortName,sortType) %>
+                                        <%- sortHelper('status(s)','status',1,sortName,sortType) %>
+                                        <%- sortHelper('Ordering','ordering',1,sortName,sortType) %>
+                                        <%- sortHelper('Created','createdAt',1,sortName,sortType) %>
+                                        <%- sortHelper('Modified','updatedAt',1,sortName,sortType) %>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -91,6 +93,18 @@
                                         <td><%= value.name %></td>
                                         <td> <%= statusHelper(value.status, "items",value.id) %></td>
                                         <td><input type="text" value="<%= value.ordering %>" class="ordering"></td>
+                                        <td>
+                                            <span class="mr-1"><ion-icon name="person-circle-outline"></ion-icon></span>
+                                            <span><%= value.createdBy.userName %></span> <br>
+                                            <span class="mr-1"><ion-icon name="timer-outline"></ion-icon></span
+                                            <span><%= moment(value.createdAt).format('DD/MM/YYYY | h:mm') %></span>
+                                        </td>
+                                        <td>
+                                            <span class="mr-1"><ion-icon name="person-circle-outline"></ion-icon></span>
+                                            <span><%= value.modifiedBy.userName %></span> <br>
+                                            <span class="mr-1"><ion-icon name="timer-outline"></ion-icon></span
+                                            <span><%= moment(value.updatedAt).format('DD/MM/YYYY | h:mm') %></span>
+                                        </td>
                                         <td>
                                             <button type="button" class="btn btn-success mr-4">
                                                 <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
@@ -110,13 +124,6 @@
                                     <% })  %>
                                     </tbody>
                                     <tfoot>
-                                    <tr>
-                                        <th>Rendering engine</th>
-                                        <th>Browser</th>
-                                        <th>Platform(s)</th>
-                                        <th>Engine version</th>
-                                        <th>CSS grade</th>
-                                    </tr>
                                     </tfoot>
                                 </table>
                             </div>

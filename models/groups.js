@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const mongooseDelete = require("mongoose-delete");
 const {Types} = require("mongoose");
 
-const itemsSchema = new Schema(
+const groupSchema = new Schema(
   {
     name: {
         type: String,
@@ -18,9 +18,8 @@ const itemsSchema = new Schema(
         type: Number,
         default: 0,
     },
-    description: {
+    groupAcp: {
         type: String,
-        default: '',
     },
     createdBy: {
         idUser: {
@@ -39,7 +38,7 @@ const itemsSchema = new Schema(
   }
 );
 
-itemsSchema.plugin(mongooseDelete, { overrideMethods: "all", deletedAt: true });
+groupSchema.plugin(mongooseDelete, { overrideMethods: "all", deletedAt: true });
 
-const items = mongoose.model("items", itemsSchema);
-module.exports = items;
+const groups = mongoose.model("groups", groupSchema);
+module.exports = groups;

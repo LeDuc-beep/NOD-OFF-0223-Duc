@@ -1,6 +1,6 @@
-<% filterStatusHelper = (statusFilter, searchValue) => { %>
+<% filterStatusHelper = (statusFilter, searchValue, types = "items") => { %>
   <% statusFilter.forEach((value) => {
-    let link = "/admin/items/status/" + value.value;
+    let link = `/admin/${types}/status/` + value.value;
     if(searchValue !== "")
     {
       link += "?search=" + searchValue;

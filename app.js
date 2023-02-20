@@ -8,6 +8,7 @@ const expressLayouts = require("express-ejs-layouts");
 const methodOverride = require('method-override')
 const flash = require('connect-flash');
 const session = require('express-session');
+const moment = require('moment');
 
 const adminRouter = require("./routes/backend/index");
 const defaultRouter = require("./routes/default/index");
@@ -24,6 +25,7 @@ app.set("view engine", "ejs");
 
 app.use(expressLayouts);
 app.set("layout", "index");
+app.locals.moment = moment;
 
 app.use(logger("dev"));
 app.use(express.json());

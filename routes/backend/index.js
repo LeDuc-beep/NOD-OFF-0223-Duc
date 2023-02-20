@@ -1,14 +1,18 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-var homeRouter = require('./home');
-var itemsRouter = require('./items');
+const homeRouter = require('./home');
+const itemsRouter = require('./items');
+const groupsRouter = require('./groups');
 
+
+/* GET group page*/
+router.use("/groups",groupsRouter);
 
 /* GET home page. */
 router.use("/",homeRouter);
 
-/* GET items page. */
+/* GET item page. */
 router.use("/items",itemsRouter);
 
 module.exports = router;

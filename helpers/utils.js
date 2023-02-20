@@ -1,7 +1,7 @@
 const itemsModel = require('../models/items');
 
 
-let createFilterStatus = async (status = "all") => {
+let createFilterStatus = async (status = "all", nameModel = itemsModel) => {
   let statusFilter = [
     {name: "ALl",value : 'all', count : 3, link: "#", class: "btn-outline-secondary"},
     {name: "ACTIVE",value: "active", count : 4, link: "#", class: "btn-outline-secondary"},
@@ -15,7 +15,7 @@ let createFilterStatus = async (status = "all") => {
       if(value.value === status) {
         value.class = "btn-success";
       }
-      await itemsModel.count(condition)
+      await nameModel.count(condition)
           .then((data) => {
             statusFilter[index].count = data;
           })

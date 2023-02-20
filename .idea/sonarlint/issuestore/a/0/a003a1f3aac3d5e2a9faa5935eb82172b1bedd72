@@ -1,0 +1,81 @@
+
+;	css:S4656a"&Unexpected duplicate "text-decoration"(ôª²ô
+A	css:S4649ıS"&Unexpected missing generic font family(‰ù©åşÿÿÿÿ
+T	css:S4666©"9Unexpected duplicate selector "hr", first used at line 77(ÄÈ÷¨øÿÿÿÿ
+Q	css:S4666™";Unexpected duplicate selector "pre", first used at line 191(½©Ÿú
+v	css:S4666é"[Unexpected duplicate selector ".dropright .dropdown-toggle::after", first used at line 3546(ÓóÄ”øÿÿÿÿ
+u	css:S4666ü"ZUnexpected duplicate selector ".dropleft .dropdown-toggle::after", first used at line 3573(èÅÔ¥ÿÿÿÿÿ
+q	css:S4666"[Unexpected duplicate selector ".dropleft .dropdown-toggle::before", first used at line 3584(ş×£
+¬	css:S4666Ó&"Unexpected duplicate selector ".navbar-expand > .container,
+.navbar-expand > .container-fluid, .navbar-expand > .container-sm, .navbar-expand > .container-md, .navbar-expand > .container-lg, .navbar-expand > .container-xl", first used at line 4926 (no-duplicate-selectors)(“ª™¶ÿÿÿÿÿ
+…	css:S4666ç)"jUnexpected duplicate selector ".breadcrumb-item + .breadcrumb-item:hover::before", first used at line 5347(Û…´ºûÿÿÿÿ
+	css:S4666ñX"uUnexpected duplicate selector ".layout-navbar-fixed.layout-fixed .wrapper .control-sidebar", first used at line 11201(ıˆûÙşÿÿÿÿ
+‚	css:S4666úX"mUnexpected duplicate selector ".layout-navbar-fixed.layout-fixed .wrapper .sidebar", first used at line 11209(ó¸ğZ
+˜	css:S4666ƒY"}Unexpected duplicate selector ".layout-navbar-fixed.layout-fixed.text-sm .wrapper .control-sidebar", first used at line 11217(»¬Ôşşÿÿÿÿ
+‹	css:S4666‡Y"uUnexpected duplicate selector ".layout-navbar-fixed.layout-fixed.text-sm .wrapper .sidebar", first used at line 11221(½øÁÜ
+ƒ	css:S4666‹Y"hUnexpected duplicate selector ".layout-navbar-fixed .wrapper .control-sidebar", first used at line 11252(¬ÍÆøøÿÿÿÿ
+v	css:S4666Y"`Unexpected duplicate selector ".layout-navbar-fixed .wrapper a.anchor", first used at line 11256(« §Î
+~	css:S4666¤Y"cUnexpected duplicate selector ".layout-navbar-fixed .wrapper .brand-link", first used at line 11267(±Üé­øÿÿÿÿ
+§	css:S4666­Y"Unexpected duplicate selector ".layout-navbar-fixed .wrapper .sidebar-dark-primary .brand-link:not([class*="navbar"])", first used at line 11276(ç‰Ñÿ
+­	css:S4666±Y"‘Unexpected duplicate selector ".layout-navbar-fixed .wrapper .sidebar-light-primary .brand-link:not([class*="navbar"])", first used at line 11280(ÔÁğ°ıÿÿÿÿ
+©	css:S4666µY"’Unexpected duplicate selector ".layout-navbar-fixed .wrapper .sidebar-dark-secondary .brand-link:not([class*="navbar"])", first used at line 11284(•ıÇò
+ª	css:S4666¹Y"“Unexpected duplicate selector ".layout-navbar-fixed .wrapper .sidebar-light-secondary .brand-link:not([class*="navbar"])", first used at line 11288(Çš€
+¦	css:S4666½Y"Unexpected duplicate selector ".layout-navbar-fixed .wrapper .sidebar-dark-success .brand-link:not([class*="navbar"])", first used at line 11292(şÔu
+¨	css:S4666ÁY"‘Unexpected duplicate selector ".layout-navbar-fixed .wrapper .sidebar-light-success .brand-link:not([class*="navbar"])", first used at line 11296(²ƒ…·
+¤	css:S4666ÅY"Unexpected duplicate selector ".layout-navbar-fixed .wrapper .sidebar-dark-info .brand-link:not([class*="navbar"])", first used at line 11300(Ñı²Ú
+ª	css:S4666ÉY"Unexpected duplicate selector ".layout-navbar-fixed .wrapper .sidebar-light-info .brand-link:not([class*="navbar"])", first used at line 11304(œÊÜ®ùÿÿÿÿ
+¬	css:S4666ÍY"Unexpected duplicate selector ".layout-navbar-fixed .wrapper .sidebar-dark-warning .brand-link:not([class*="navbar"])", first used at line 11308(Áø¤÷ıÿÿÿÿ
+­	css:S4666ÑY"‘Unexpected duplicate selector ".layout-navbar-fixed .wrapper .sidebar-light-warning .brand-link:not([class*="navbar"])", first used at line 11312(ÿòŞÍşÿÿÿÿ
+¦	css:S4666ÕY"Unexpected duplicate selector ".layout-navbar-fixed .wrapper .sidebar-dark-danger .brand-link:not([class*="navbar"])", first used at line 11316(ª‰¸
+¬	css:S4666ÙY"Unexpected duplicate selector ".layout-navbar-fixed .wrapper .sidebar-light-danger .brand-link:not([class*="navbar"])", first used at line 11320(¦Ñ¿üúÿÿÿÿ
+ª	css:S4666İY"Unexpected duplicate selector ".layout-navbar-fixed .wrapper .sidebar-dark-light .brand-link:not([class*="navbar"])", first used at line 11324(Û³ÕÂøÿÿÿÿ
+¦	css:S4666áY"Unexpected duplicate selector ".layout-navbar-fixed .wrapper .sidebar-light-light .brand-link:not([class*="navbar"])", first used at line 11328(»¹
+¤	css:S4666åY"Unexpected duplicate selector ".layout-navbar-fixed .wrapper .sidebar-dark-dark .brand-link:not([class*="navbar"])", first used at line 11332(ªÂçç
+ª	css:S4666éY"Unexpected duplicate selector ".layout-navbar-fixed .wrapper .sidebar-light-dark .brand-link:not([class*="navbar"])", first used at line 11336(ışÎ³øÿÿÿÿ
+ƒ	css:S4666íY"hUnexpected duplicate selector ".layout-navbar-fixed .wrapper .content-wrapper", first used at line 11340(Âÿ’øÿÿÿÿ
+z	css:S4666öY"dUnexpected duplicate selector ".layout-navbar-fixed .wrapper .main-header", first used at line 11348(”¤şˆ
+†	css:S4666şY"pUnexpected duplicate selector ".layout-navbar-fixed.text-sm .wrapper .content-wrapper", first used at line 11356(½®Âø
+ 	css:S4666‚Z"„Unexpected duplicate selector "body:not(.layout-fixed).layout-navbar-fixed.text-sm .wrapper .main-sidebar", first used at line 11244(ÕÑùúÿÿÿÿ
+¤	css:S4666†Z"Unexpected duplicate selector "body:not(.layout-fixed).layout-navbar-fixed.text-sm .wrapper .main-sidebar .sidebar", first used at line 11248(ÕêÒ’
+}	css:S4666ŠZ"gUnexpected duplicate selector ".layout-navbar-not-fixed .wrapper .brand-link", first used at line 11360(çÉéà
+Í	css:S4666Z"±Unexpected duplicate selector ".layout-navbar-not-fixed .wrapper .sidebar,
+.layout-navbar-not-fixed .wrapper .content-wrapper", first used at line 11364 (no-duplicate-selectors)(Ã¼”“ıÿÿÿÿ
+~	css:S4666“Z"hUnexpected duplicate selector ".layout-navbar-not-fixed .wrapper .main-header", first used at line 11369(Ö•—
+Œ	css:S4666—Z"qUnexpected duplicate selector ".layout-navbar-not-fixed.layout-fixed .wrapper .sidebar", first used at line 11373(ıÈã«üÿÿÿÿ
+~	css:S4666Ë^"hUnexpected duplicate selector ".layout-footer-fixed .wrapper .control-sidebar", first used at line 12087(«”–Õ
+y	css:S4666Ï^"dUnexpected duplicate selector ".layout-footer-fixed .wrapper .main-footer", first used at line 12091(Äà´
+
+~	css:S4666Û^"hUnexpected duplicate selector ".layout-footer-not-fixed .wrapper .main-footer", first used at line 12099(ßŞåÌ
+·	css:S4666‘b"›Unexpected duplicate selector ".layout-navbar-fixed .dark-mode .wrapper .sidebar-dark-primary .brand-link:not([class*="navbar"])", first used at line 12497(„¾è ıÿÿÿÿ
+³	css:S4666•b"œUnexpected duplicate selector ".layout-navbar-fixed .dark-mode .wrapper .sidebar-light-primary .brand-link:not([class*="navbar"])", first used at line 12501(Å–­Æ
+´	css:S4666™b"Unexpected duplicate selector ".layout-navbar-fixed .dark-mode .wrapper .sidebar-dark-secondary .brand-link:not([class*="navbar"])", first used at line 12505(‡‰ø
+µ	css:S4666b"Unexpected duplicate selector ".layout-navbar-fixed .dark-mode .wrapper .sidebar-light-secondary .brand-link:not([class*="navbar"])", first used at line 12509(“ùø
+·	css:S4666¡b"›Unexpected duplicate selector ".layout-navbar-fixed .dark-mode .wrapper .sidebar-dark-success .brand-link:not([class*="navbar"])", first used at line 12513(Ãˆìõşÿÿÿÿ
+³	css:S4666¥b"œUnexpected duplicate selector ".layout-navbar-fixed .dark-mode .wrapper .sidebar-light-success .brand-link:not([class*="navbar"])", first used at line 12517(ı°Æù
+´	css:S4666©b"˜Unexpected duplicate selector ".layout-navbar-fixed .dark-mode .wrapper .sidebar-dark-info .brand-link:not([class*="navbar"])", first used at line 12521(í¿ğşÿÿÿÿ
+µ	css:S4666­b"™Unexpected duplicate selector ".layout-navbar-fixed .dark-mode .wrapper .sidebar-light-info .brand-link:not([class*="navbar"])", first used at line 12525(ÔªÚ†şÿÿÿÿ
+·	css:S4666±b"›Unexpected duplicate selector ".layout-navbar-fixed .dark-mode .wrapper .sidebar-dark-warning .brand-link:not([class*="navbar"])", first used at line 12529(»§ıÆıÿÿÿÿ
+³	css:S4666µb"œUnexpected duplicate selector ".layout-navbar-fixed .dark-mode .wrapper .sidebar-light-warning .brand-link:not([class*="navbar"])", first used at line 12533(Ğè÷ş
+¶	css:S4666¹b"šUnexpected duplicate selector ".layout-navbar-fixed .dark-mode .wrapper .sidebar-dark-danger .brand-link:not([class*="navbar"])", first used at line 12537(å¹±Àıÿÿÿÿ
+·	css:S4666½b"›Unexpected duplicate selector ".layout-navbar-fixed .dark-mode .wrapper .sidebar-light-danger .brand-link:not([class*="navbar"])", first used at line 12541(Ø€ßûÿÿÿÿ
+µ	css:S4666Áb"™Unexpected duplicate selector ".layout-navbar-fixed .dark-mode .wrapper .sidebar-dark-light .brand-link:not([class*="navbar"])", first used at line 12545(¡ËşÚùÿÿÿÿ
+±	css:S4666Åb"šUnexpected duplicate selector ".layout-navbar-fixed .dark-mode .wrapper .sidebar-light-light .brand-link:not([class*="navbar"])", first used at line 12549(»„’ˆ
+´	css:S4666Éb"˜Unexpected duplicate selector ".layout-navbar-fixed .dark-mode .wrapper .sidebar-dark-dark .brand-link:not([class*="navbar"])", first used at line 12553(¹Íˆ¼ÿÿÿÿÿ
+°	css:S4666Íb"™Unexpected duplicate selector ".layout-navbar-fixed .dark-mode .wrapper .sidebar-light-dark .brand-link:not([class*="navbar"])", first used at line 12557(¸ÉæŒ
+r	css:S4666Ïy"\Unexpected duplicate selector ".nav-sidebar .nav-item > .nav-link", first used at line 13225(Öµ›Ñ
+c	css:S4666š}"MUnexpected duplicate selector ".nav-pills .nav-link", first used at line 4562(ŠøáÃ
+R	css:S4666¢®";Unexpected duplicate selector "pre", first used at line 191(½©Ÿú
+Y	css:S4666¦®"BUnexpected duplicate selector "blockquote", first used at line 133(ô§¤
+\	css:S4666³µ"EUnexpected duplicate selector ".text-white", first used at line 10664(µÒÄ…
+[	css:S4666§¶"DUnexpected duplicate selector ".bg-primary", first used at line 7124(½ÉÁò
+b	css:S4666»¶"FUnexpected duplicate selector ".bg-secondary", first used at line 7134(Ê—€µùÿÿÿÿ
+[	css:S4666Ï¶"DUnexpected duplicate selector ".bg-success", first used at line 7144(±£Í–
+W	css:S4666ã¶"AUnexpected duplicate selector ".bg-info", first used at line 7154(Ô¥Âe
+Z	css:S4666÷¶"DUnexpected duplicate selector ".bg-warning", first used at line 7164(ã~
+_	css:S4666‹·"CUnexpected duplicate selector ".bg-danger", first used at line 7174(¢àİùÿÿÿÿ
+Y	css:S4666Ÿ·"BUnexpected duplicate selector ".bg-light", first used at line 7184(ªÙ¡ß
+X	css:S4666³·"AUnexpected duplicate selector ".bg-dark", first used at line 7194(ùñú„
+^	css:S4666‡º"BUnexpected duplicate selector ".bg-white", first used at line 7204(ü‚ïøÿÿÿÿ
+^	css:S4666Ãº"BUnexpected duplicate selector ".bg-gray", first used at line 23835(®ñœÍşÿÿÿÿ
+^	css:S4666Òº"BUnexpected duplicate selector ".bg-white", first used at line 7204(ü‚ïøÿÿÿÿ
+e	css:S4666âÏ"NUnexpected duplicate selector ".dark-mode .bg-light", first used at line 26462(Ó²¾û

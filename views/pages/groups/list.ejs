@@ -23,8 +23,8 @@
                         <h4 class="mb-3 d-block bg-gradient-green pt-2 pb-2 pr-2 "><%= message %></h4>
                     <%}%>
                     <% include ./../../helpers/filter-status.ejs %>
-                    <% filterStatusHelper(statusFilter, searchValue) %>
-                    <form action="/admin/items<%= statusPath %>" method="get" name="listItemSearch">
+                    <% filterStatusHelper(statusFilter, searchValue, "groups") %>
+                    <form action="/admin/groups<%= statusPath %>" method="get" name="listItemSearch">
                         <div class="input-group mt-3">
                             <div class="form-outline">
                                 <input type="search" id="form1" class="form-control" name="search" value="<%= searchValue %>"/>
@@ -33,16 +33,16 @@
                                 <i class="fas fa-search"></i>
                             </button>
                             <button type="button" class="btn btn-danger">
-                                <i><a href="/admin/items<%= statusPath %>" class="fas fa-window-close"></a></i>
+                                <i><a href="/admin/groups<%= statusPath %>" class="fas fa-window-close"></a></i>
                             </button>
                         </div>
                     </form>
             </div>
             <div>
-                <a href="/admin/items/form" class="btn btn-primary add-list"><i class="las la-plus mr-2"></i>Add Product</a>
+                <a href="/admin/groups/form" class="btn btn-primary add-list"><i class="las la-plus mr-2"></i>Add Product</a>
             </div>
         </div>
-        <form action="/admin/items/multipleAction" method="post" name="multipleForm">
+        <form action="/admin/groups/multipleAction" method="post" name="multipleForm">
             <div class="col-lg-12">
                 <select class="form-select mx-auto mb-4" aria-label="Default select example"  name="action">
                     <option value="">Select action</option>
@@ -72,16 +72,18 @@
                                         </th>
                                         <% include ./../../helpers/sort-list.ejs %>
                                         <th>#</th>
-                                        <%- sortHelper('name','name',1,sortName,sortType) %>
-                                        <%- sortHelper('status(s)','status',1,sortName,sortType) %>
-                                        <%- sortHelper('Ordering','ordering',1,sortName,sortType) %>
-                                        <%- sortHelper('Created','createdAt',1,sortName,sortType) %>
-                                        <%- sortHelper('Modified','updatedAt',1,sortName,sortType) %>
+                                        <%- sortHelper('name','name',1,sortName,sortType,"groups") %>
+                                        <%- sortHelper('status(s)','status',1,sortName,sortType,"groups") %>
+                                        <%- sortHelper('Ordering','ordering',1,sortName,sortType,"groups") %>
+                                        <%- sortHelper('Group Acp', 'groupAcp', 1, sortName, sortType,"groups") %>
+                                        <%- sortHelper('Created','createdAt',1,sortName,sortType,"groups") %>
+                                        <%- sortHelper('Modified','updatedAt',1,sortName,sortType,"groups") %>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <% include ./../../helpers/status.ejs %>
+                                    <% include ./../../helpers/group-acp.ejs %>
                                     <% items.forEach((value,index) => { %>
                                     <tr>
                                         <td>
@@ -91,8 +93,9 @@
                                         </td>
                                         <td><%= index + 1 %></td>
                                         <td><%= value.name %></td>
-                                        <td> <%= statusHelper(value.status, "items",value.id) %></td>
-                                        <td><input type="text" value="<%= value.ordering %>" class="ordering"></td>
+                                        <td> <%= statusHelper(value.status, "groups",value.id) %></td>
+                                        <td><input type="text" value="<%= value.ordering %>" class="ordering "></td>
+                                        <td><%- groupAcpHelper(value.id, value.groupAcp)  %></td>
                                         <td>
                                             <span class="mr-1"><ion-icon name="person-circle-outline"></ion-icon></span>
                                             <span><%= value.createdBy.userName %></span> <br>
@@ -108,7 +111,7 @@
                                         <td>
                                             <button type="button" class="btn btn-success mr-4">
                                                 <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
-                                                   href="/admin/items/form/<%= value.id %>" class="text-white">
+                                                   href="/admin/groups/form/<%= value.id %>" class="text-white">
                                                     Edit
                                                 </a>
                                             </button>
@@ -185,7 +188,7 @@
         });
 
         btnDeleted.onclick = () => {
-            deleteForm.action = '/admin/items/' + deletedID + '?_method=DELETE';
+            deleteForm.action = '/admin/groups/' + deletedID + '?_method=DELETE';
             deleteForm.submit();
         }
 

@@ -8,7 +8,7 @@ const {json} = require("express");
 const {messageItemHelper} = require("../../helpers/message");
 
 // total item per page
-const totalItem = 2;
+const totalItem = 4;
 // number pages display
 const pageRange = 3;
 // Path view
@@ -27,6 +27,7 @@ router.put(
     "/update/:id",
     body('name').isLength({min: 5}).withMessage(messageItemHelper.errorName),
     body('ordering').isNumeric().withMessage(messageItemHelper.errorOrdering),
+    body('description').isLength({min: 5}).withMessage(messageItemHelper.errorDescription),
     async (req,res,next) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
@@ -39,7 +40,12 @@ router.put(
     }
     else
     {
-        await itemsModel.findByIdAndUpdate(req.params.id,req.body)
+        let dataUpdated = req.body;
+        dataUpdated.modifiedBy = {
+            idUser : 'asd1w1213',
+            userName : 'sdada',
+        }
+        await itemsModel.findByIdAndUpdate(req.params.id,dataUpdated)
             .then(() => {
                 req.flash('info',messageItemHelper.flashUpdate);
                 res.redirect("/admin/items");
@@ -51,9 +57,13 @@ router.put(
 
 /* Multiple Action */
 router.post('/multipleAction', async (req,res,next) => {
+    const modifiedBy = {
+        idUser : 'test2',
+        userName : 'test2',
+    }
    switch (req.body.action){
        case "active":{
-           await itemsModel.updateMany({_id: {$in: req.body.checkItem}}, {status: "active"})
+           await itemsModel.updateMany({_id: {$in: req.body.checkItem}}, { status: "active", modifiedBy: modifiedBy })
                .then((data) => {
                    req.flash('info',data.nModified + messageItemHelper.multiFlashStatus);
                    res.redirect('back');
@@ -62,7 +72,7 @@ router.post('/multipleAction', async (req,res,next) => {
            break;
        }
        case "inactive":{
-           await itemsModel.updateMany({_id: {$in: req.body.checkItem}}, {status: "inactive"})
+           await itemsModel.updateMany({_id: {$in: req.body.checkItem}}, { status: "inactive", modifiedBy: modifiedBy })
                .then((data) => {
                    req.flash('info',data.nModified + messageItemHelper.multiFlashStatus);
                    res.redirect('back');
@@ -84,7 +94,7 @@ router.post('/multipleAction', async (req,res,next) => {
            let listID = (Array.isArray(req.body.checkItem))?req.body.checkItem:[req.body.checkItem];
            let listOrder = (Array.isArray(req.body.ordering))?req.body.ordering:[req.body.ordering];
            for(const value of listID) {
-               await itemsModel.findByIdAndUpdate(value,{ordering: parseInt(listOrder[index])});
+               await itemsModel.findByIdAndUpdate(value,{ ordering: parseInt(listOrder[index]), modifiedBy: modifiedBy });
                index++;
            }
            req.flash('info',`${index} has been changed ordering`);
@@ -110,21 +120,12 @@ router.delete('/:id', async (req,res,next) => {
         })
 })
 
-/* Change Status Items */
-router.get("/changeStatus/:id/:status", async (req,res,next) => {
-  let statusChange = (req.params.status === "active")?"inactive":"active";
-  await itemsModel.findByIdAndUpdate(req.params.id,{status: statusChange})
-      .then((data) => {
-          req.flash('info',messageItemHelper.flashStatus);
-          res.redirect(pathRedirectView);
-      })
-} )
-
 /* ADD new items. */
 router.post(
     "/add",
     body('name').isLength({min: 5}).withMessage(messageItemHelper.errorName),
     body('ordering').isNumeric().withMessage(messageItemHelper.errorOrdering),
+    body('description').isLength({min: 5}).withMessage(messageItemHelper.errorDescription),
     async (req, res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
@@ -143,10 +144,35 @@ router.post(
 
 });
 
+/* SORT */
+router.get("/sort/:sortName/:sortType", async (req,res,next) => {
+    req.session.sortName = req.params.sortName;
+    req.session.sortType = req.params.sortType;
+    res.redirect("/admin/items");
+})
+
+/* Change Status Items */
+router.get("/changeStatus/:id/:status", async (req,res,next) => {
+    let statusChange = (req.params.status === "active")?"inactive":"active";
+    const modifiedBy = {
+        idUser : 'test2',
+        userName : 'test2',
+    }
+    await itemsModel.findByIdAndUpdate(req.params.id,{status: statusChange, modifiedBy: modifiedBy})
+        .then((data) => {
+            req.flash('info',messageItemHelper.flashStatus);
+            res.redirect(pathRedirectView);
+        })
+} )
+
 /* GET item all */
 router.get("/status/:status", async (req, res, next) => {
   let statusFilter = await helpers.createFilterStatus(req.params.status);
   let checkStatus = req.params.status !== "all" ? req.params.status : "";
+  let sortName = (req.session.sortName)?req.session.sortName:"ordering";
+  let sortType = (req.session.sortType)?parseInt(req.session.sortType):1;
+  let sortCondition = {};
+  sortCondition[sortName] = sortType;
   let whereQuery;
   let pagination = {
     totalItemsPerpage : totalItem,
@@ -168,7 +194,7 @@ router.get("/status/:status", async (req, res, next) => {
   }
   Promise.all(([
     await itemsModel
-        .find(whereQuery).sort({ordering: 1})
+        .find(whereQuery).sort(sortCondition)
         .skip((pagination.currentPages-1)*pagination.totalItemsPerpage)
         .limit(pagination.totalItemsPerpage),
     await itemsModel
@@ -186,7 +212,9 @@ router.get("/status/:status", async (req, res, next) => {
         statusPath: `/status/${req.params.status}`,
         searchValue,
         pagination,
-        message
+        message,
+        sortName,
+        sortType,
       });
     })
     .catch(next);
@@ -214,6 +242,10 @@ router.get("/form(/:id)?", async (req,res,next) => {
 /* GET home page. */
 router.get("/", async function (req, res, next) {
   let statusFilter = await helpers.createFilterStatus();
+  let sortName = (req.session.sortName)?req.session.sortName:"ordering";
+  let sortType = (req.session.sortType)?parseInt(req.session.sortType):1;
+  let sortCondition = {};
+  sortCondition[sortName] = sortType;
   let whereQuery = {};
   let pagination = {
     totalItemsPerpage : totalItem,
@@ -224,10 +256,10 @@ router.get("/", async function (req, res, next) {
       name: { $regex: `${req.query.search}`, $options: 'i' },
     };
   }
-
+    console.log(sortCondition);
   Promise.all(([
     await itemsModel
-        .find(whereQuery).sort({ordering: 1})
+        .find(whereQuery).sort(sortCondition)
         .skip((pagination.currentPages-1)*pagination.totalItemsPerpage)
         .limit(pagination.totalItemsPerpage),
     await itemsModel
@@ -245,7 +277,9 @@ router.get("/", async function (req, res, next) {
         statusPath: "",
         searchValue,
         pagination,
-          message
+        message,
+        sortName,
+        sortType,
       });
     })
     .catch(next);

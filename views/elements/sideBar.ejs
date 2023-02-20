@@ -41,25 +41,19 @@
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview">
+                <ul class="nav nav-treeview" id = "menuDash">
                     <li class="nav-item">
-                        <a href="/admin/items" class="nav-link active">
+                        <a href="/admin/items" class="nav-link optionsDash">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Items Management</p>
                         </a>
                     </li>
-<!--                    <li class="nav-item">-->
-<!--                        <a href="./index2.html" class="nav-link">-->
-<!--                            <i class="far fa-circle nav-icon"></i>-->
-<!--                            <p>Dashboard v2</p>-->
-<!--                        </a>-->
-<!--                    </li>-->
-<!--                    <li class="nav-item">-->
-<!--                        <a href="./index3.html" class="nav-link">-->
-<!--                            <i class="far fa-circle nav-icon"></i>-->
-<!--                            <p>Dashboard v3</p>-->
-<!--                        </a>-->
-<!--                    </li>-->
+                    <li class="nav-item">
+                        <a href="/admin/groups" class="nav-link optionsDash">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Groups Management</p>
+                        </a>
+                    </li>
                 </ul>
             </li>
 
@@ -67,4 +61,11 @@
     </nav>
     <!-- /.sidebar-menu -->
 </div>
-<!-- /.sidebar -->
+
+<script>
+    const option = document.getElementsByClassName("nav-link");
+    // document.addEventListener("DOMContentLoaded", function () {
+    //     const option = document.getElementsByClassName("nav-link");
+    //     console.log(option);
+    // })
+</script>

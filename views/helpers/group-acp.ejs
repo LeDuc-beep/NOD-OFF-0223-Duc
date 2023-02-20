@@ -1,0 +1,11 @@
+<% sortHelper = (name, sortName, sortType, sortNameCurrent, sortTypeCurrent) => {
+    let sortVer = sortType;
+    let icon = 'swap-vertical-outline';
+    if(sortName === sortNameCurrent){
+        icon = (sortTypeCurrent === -1)?"arrow-up-outline":"arrow-down-outline";
+        sortVer = (sortTypeCurrent === 1)?-1:1;
+    }
+    let link = `/admin/items/sort/${sortName}/${sortVer}`;
+    return `<th>${name}<a href="${link}"><ion-icon class="ml-2" name="${icon}"></ion-icon></a> </th>`
+} %>
+

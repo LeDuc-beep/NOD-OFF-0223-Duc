@@ -10,9 +10,9 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const moment = require('moment');
 
-const adminRouter = require("./routes/backend/index");
-const defaultRouter = require("./routes/default/index");
-const db = require("./configs/db/index");
+const adminRouter = require("./app/routes/backend/index");
+const defaultRouter = require("./app/routes/default/index");
+const db = require("./app/configs/db/index");
 
 
 const app = express();
@@ -20,7 +20,7 @@ const app = express();
 db.connect();
 
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "app/views"));
 app.set("view engine", "ejs");
 
 app.use(expressLayouts);
@@ -31,7 +31,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "app/public")));
 
 
 app.use(cookieParser('keyboard cat'));

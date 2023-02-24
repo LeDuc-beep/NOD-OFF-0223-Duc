@@ -7,7 +7,7 @@ const totalItem = 4;
 // number pages display
 const pageRange = 3;
 // Path view
-const pathView = 'pages/groups';
+const pathView = 'backend/pages/groups';
 // Redirect view
 const pathRedirectView = '/admin/groups';
 // Form Single Item
@@ -24,7 +24,7 @@ class GroupService {
         errors["errors"].forEach((error) => {
         errorArr[`${error.param}`] = error.msg;
         })
-        res.render(`pages/groups/form`,
+        res.render(`backend/pages/groups/form`,
             {item: req.body, errorArr, message: "", title: "Edit",link : `/admin/groups/update/${req.params.id}?_method=PUT`})
         }
         else

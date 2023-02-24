@@ -24,7 +24,7 @@ app.set("views", path.join(__dirname, "app/views"));
 app.set("view engine", "ejs");
 
 app.use(expressLayouts);
-app.set("layout", "index");
+app.set("layout", "frontend/index");
 app.locals.moment = moment;
 
 app.use(logger("dev"));

@@ -5,6 +5,11 @@ const homeRouter = require('./home');
 const itemsRouter = require('./items');
 const groupsRouter = require('./groups');
 
+router.use((req,res,next) => {
+    //changing layout backend
+    req.app.set('layout','backend/index');
+    next();
+})
 
 /* GET group page*/
 router.use("/groups",groupsRouter);

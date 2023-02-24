@@ -7,7 +7,7 @@ const totalItem = 4;
 // number pages display
 const pageRange = 3;
 // Path view
-const pathView = "pages/items";
+const pathView = "backend/pages/items";
 // Redirect view
 const pathRedirectView = "/admin/items";
 // Form Single Item
@@ -24,7 +24,7 @@ class ItemsService {
       errors["errors"].forEach((error) => {
         errorArr[`${error.param}`] = error.msg;
       });
-      res.render(`pages/items/form`, {
+      res.render(`backend/pages/items/form`, {
         item: req.body,
         errorArr,
         message: "",

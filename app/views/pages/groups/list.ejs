@@ -17,23 +17,27 @@
 <section class="content">
     <div class="container-fluid">
         <div class="col-lg-12">
+            <div>
+                <% if(Object.keys(message).length > 0)  {%>
+                    <h4 class="mb-3 d-block bg-gradient-green pt-2 pb-2 pr-2 "><%= message %></h4>
+                <%}%>
+            </div>
             <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
                 <div>
-                    <% if(Object.keys(message).length > 0)  {%>
-                        <h4 class="mb-3 d-block bg-gradient-green pt-2 pb-2 pr-2 "><%= message %></h4>
-                    <%}%>
                     <% include ./../../helpers/filter-status.ejs %>
-                    <% filterStatusHelper(statusFilter, searchValue, "groups") %>
-                    <form action="/admin/groups<%= statusPath %>" method="get" name="listItemSearch">
+                    <% filterStatusHelper(statusFilter, searchValue) %>
+                </div>
+                <div>
+                    <form action="/admin/items<%= statusPath %>" method="get" name="listItemSearch">
                         <div class="input-group mt-3">
                             <div class="form-outline">
-                                <input type="search" id="form1" class="form-control" name="search" value="<%= searchValue %>"/>
+                                <input type="search" id="form1" class="form-control" name="search" value="<%= searchValue %>" placeholder="search"/>
                             </div>
                             <button type="submit" class="btn btn-primary mx-2" >
                                 <i class="fas fa-search"></i>
                             </button>
                             <button type="button" class="btn btn-danger">
-                                <i><a href="/admin/groups<%= statusPath %>" class="fas fa-window-close"></a></i>
+                                <i><a href="/admin/items<%= statusPath %>" class="fas fa-window-close"></a></i>
                             </button>
                         </div>
                     </form>
@@ -43,15 +47,17 @@
             </div>
         </div>
         <form action="/admin/groups/multipleAction" method="post" name="multipleForm">
-            <div class="col-lg-12">
-                <select class="form-select mx-auto mb-4" aria-label="Default select example"  name="action">
-                    <option value="">Select action</option>
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                    <option value="delete">Delete</option>
-                    <option value="changeOrdering">Change ordering</option>
-                </select>
-                <button type="submit" class="btn btn-primary disabled" id="buttonSubmitAll">Submit</button>
+            <div class="row g-3 mb-4">
+                <div class="col-auto">
+                    <select class="custom-select" aria-label="Default select example"  name="action">
+                        <option value="">Select action</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                        <option value="delete">Delete</option>
+                        <option value="changeOrdering">Change ordering</option>
+                    </select>
+                </div>
+                <div class="col-auto"><button type="submit" class="btn btn-primary disabled" id="buttonSubmitAll">Submit</button></div>
             </div>
             <div class="row">
                 <div class="col-12">

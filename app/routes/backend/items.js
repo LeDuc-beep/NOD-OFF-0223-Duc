@@ -5,6 +5,10 @@ const { messageItemHelper } = require("../../helpers/message");
 
 const itemController = require("../../controller/items.controller");
 
+router.get('/test', (req,res,next) => {
+  res.render('backend/pages/items/test');
+})
+
 /* Edit Items */
 router.put(
   "/update/:id",

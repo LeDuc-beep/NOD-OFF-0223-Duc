@@ -14,6 +14,7 @@ const adminRouter = require("./app/routes/backend/index");
 const defaultRouter = require("./app/routes/default/index");
 const db = require("./app/configs/db/index");
 
+require('dotenv').config()
 
 const app = express();
 

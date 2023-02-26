@@ -3,7 +3,7 @@
 <div class="">
     <div class="row mb-2 card-body">
         <div class="col-sm-6">
-            <h1 class="m-0">Danh sách groups</h1>
+            <h1 class="m-0">Danh mục sản phẩm</h1>
         </div>
     </div>
     <div class="card card-info ml-2 card-outline">
@@ -29,7 +29,7 @@
                         <div class="input-group">
                             <input type="text"  id="form1" class="form-control form-control-sm"  name="search" value="<%= searchValue %>" placeholder="Search for..." style="min-width: 300px">
                             <div class="input-group-append">
-                                <a type="button" class="btn btn-sm btn-danger"   href="/admin/groups<%= statusPath %>">Clear</a>
+                                <a type="button" class="btn btn-sm btn-danger"   href="/admin/items<%= statusPath %>">Clear</a>
                                 <button type="submit" class="btn btn-sm btn-info" id="btn-search">Search</button>
                             </div>
                         </div>
@@ -47,7 +47,7 @@
     </div>
 
     <!-- content -->
-    <form action="/admin/groups/multipleAction" method="post" name="multipleForm" id = "multiForm">
+    <form action="/admin/items/multipleAction" method="post" name="multipleForm" id = "multiForm">
         <div class="card card-info card-outline">
             <div class="card-header">
                 <h4 class="card-title">List</h4>
@@ -64,7 +64,7 @@
                             </button>
                         </div>
                     </div>
-                    <a href="/admin/groups/form" class="btn btn-warning" style="background-color: #F0AD4E; color: white; font-weight: 500;">Add New</a>
+                    <a href="/admin/items/form" class="btn btn-warning" style="background-color: #F0AD4E; color: white; font-weight: 500;">Add New</a>
                     <button type="button" class="btn btn-danger" onClick="changeMultiStatus('delete')" data-toggle="modal" data-target="#modal-danger">
                         <i class="fas fa-trash-alt"></i>Delete Multi
                     </button>
@@ -106,7 +106,7 @@
                         </td>
                         <td><%= index + 1 %></td>
                         <td><%= value.name %></td>
-                        <td class="text-center position-relative"> <%- statusHelper(value.status, "groups",value._id) %></td>
+                        <td class="text-center position-relative"> <%- statusHelper(value.status, "items",value._id) %></td>
                         <td class="text-center position-relative"><input  class="text-center ordering" type="text" value="<%= value.ordering %>" class="ordering"></td>
                         <td class="text-center position-relative">
                             <span class="mr-1"><ion-icon name="person-circle-outline"></ion-icon></span>
@@ -121,7 +121,7 @@
                             <span><%= moment(value.updatedAt).format('DD/MM/YYYY | h:mm') %></span>
                         </td>
                         <td class="text-center p-3">
-                            <a href="/admin/groups/form/<%= value._id %>" class="rounded-circle btn btn-sm btn-info " title="Edit">
+                            <a href="/admin/items/form/<%= value._id %>" class="rounded-circle btn btn-sm btn-info " title="Edit">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
                             <button type="button" class="rounded-circle btn btn-sm btn-danger">
@@ -146,7 +146,7 @@
 
 </div>
 
-<!--<form action="/admin/groups/multipleAction" method="post" name="multipleForm">-->
+<!--<form action="/admin/items/multipleAction" method="post" name="multipleForm">-->
 <!--    <div class="row g-3 mb-4">-->
 <!--        <div class="col-auto">-->
 <!--            <select class="custom-select" aria-label="Default select example"  name="action">-->
@@ -163,24 +163,6 @@
 <form name="deletedForm" method="post" action="">
 </form>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Item</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Are you sure want to delete this ITEM?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" id="buttonDeleted" class="btn btn-primary">Confirm</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -199,7 +181,7 @@
         });
 
         btnDeleted.onclick = () => {
-            deleteForm.action = '/admin/groups/' + deletedID + '?_method=DELETE';
+            deleteForm.action = '/admin/items/' + deletedID + '?_method=DELETE';
             deleteForm.submit();
         }
 

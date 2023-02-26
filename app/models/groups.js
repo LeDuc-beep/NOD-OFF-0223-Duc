@@ -29,8 +29,8 @@ const groupSchema = new Schema(
         userName: { type: String, default: '' },
     },
     modifiedBy: {
-        idUser: String,
-        userName: String,
+        idUser: { type: String, default: ''},
+        userName: {type: String, default: ''},
     }
   },
   {

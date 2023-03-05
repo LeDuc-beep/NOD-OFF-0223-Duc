@@ -173,15 +173,13 @@ class ItemsService {
       idUser: "test2",
       userName: "test2",
     };
-    await itemsModel
+     await itemsModel
       .findByIdAndUpdate(req.params.id, {
         status: statusChange,
         modifiedBy: modifiedBy,
       })
-      .lean()
       .then((data) => {
-        req.flash("info", messageItemHelper.flashStatus);
-        res.redirect(pathRedirectView);
+        res.send(data)
       });
   }
 

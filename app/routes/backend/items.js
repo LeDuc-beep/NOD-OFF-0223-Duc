@@ -45,8 +45,8 @@ router.get("/sort/:sortName/:sortType", (req, res, next) => {
 });
 
 /* Change Status Items */
-router.get("/changeStatus/:id/:status", (req, res, next) => {
-  itemController.changeStatusItem(req, res, next);
+router.get("/changeStatus/:id/:status", async (req, res, next) => {
+  return  await itemController.changeStatusItem(req, res, next);
 });
 
 /* GET item all */

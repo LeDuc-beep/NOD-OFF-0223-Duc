@@ -3,13 +3,13 @@
   let className = (status === "active")?"rounded-circle btn btn-sm btn-success":"rounded-circle btn btn-sm btn-danger";
   let tagName   = (status === "active")?"activeBtn":"inactiveBtn";
   let name  = (status === "active")?`<i class="fas fa-check">`:`<i class="fas fa-ban">`;
-  return `<a href="${link}" class="${className}" name="${tagName}">${name}</a>`
+  return `<a href="javascript:ajaxChangeStatus('${link}','${type}')" class="${className}" name="${tagName}">${name}</a>`
 %>
-  <a href="<%= link %>">
-    <% if(status === "active") { %>
-          <button type="button" class="btn btn-success custom" name="activeBtn">active</button>
-    <% } else if (status === "inactive") { %>
-          <button type="button" class="btn btn-warning custom" name="inactiveBtn">Inactive</button>
-    <% } %>
-  </a>
+<a href="<%= link %>" onclick="javascipt: ajaxChangeStatus()">
+  <% if(status === "active") { %>
+    <button type="button" class="btn btn-success custom" name="activeBtn">active</button>
+  <% } else if (status === "inactive") { %>
+    <button type="button" class="btn btn-warning custom" name="inactiveBtn">Inactive</button>
+  <% } %>
+</a>
 <% } %>

@@ -1,4 +1,28 @@
+<%
+const newArr = [
+    {
+        "name": "Dash board",
+        "link": "#",
+        "icon": "a",
+    },
+    {
+        "name": "Items",
+        "link": "#",
+        "child":
+            [{
+                "name": "list",
+                "link": "#",
+                "icon": "b"
+            },
+            {
+                "name": "form",
+                "link": "#",
+                "icon": "c"
+            }]
+    }
+]
 
+ %>
 
 <div class="">
     <div class="row mb-2 card-body">
@@ -95,7 +119,12 @@
                 </thead>
                 <tbody>
                 <% include ./../../helpers/status.ejs %>
-                <% items.forEach((value,index) => { %>
+                <% items.forEach((value,index) => {
+                    if(searchValue !== "") {
+                        const regex = new RegExp(searchValue,"ig");
+                        value.name = value.name.replaceAll(regex,`<span class="text-primary">${searchValue}</span>`)
+                    }
+                %>
                     <tr>
                         <td  class="text-center">
                             <div class="custom-control custom-checkbox">
@@ -103,8 +132,8 @@
                             </div>
                         </td>
                         <td><%= index + 1 %></td>
-                        <td><%= value.name %></td>
-                        <td class="text-center position-relative"> <%- statusHelper(value.status, "items",value._id) %></td>
+                        <td><%- value.name %></td>
+                        <td id="status-<%= value._id %>" class="text-center position-relative"> <%- statusHelper(value.status, "items",value._id) %></td>
                         <td class="text-center position-relative"><input  class="text-center ordering" type="text" value="<%= value.ordering %>" class="ordering"></td>
                         <td class="text-center position-relative">
                             <span class="mr-1"><ion-icon name="person-circle-outline"></ion-icon></span>

@@ -44,7 +44,7 @@
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form action="<%= link%>" method="post" >
+                    <form action="<%= link %>" method="post"  enctype="multipart/form-data">
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Name *</label>
@@ -72,6 +72,9 @@
                                 <div class="help-block with-errors text-red m-2">
                                     <%= (typeof errorArr !== "undefined")?errorArr.description:"" %>
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <input value="<%= item.image%>" type="file" class="form-control" name="upload_file">
                             </div>
                         </div>
                         <!-- /.card-body -->

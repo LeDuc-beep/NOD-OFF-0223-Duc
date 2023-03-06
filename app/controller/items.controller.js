@@ -20,6 +20,10 @@ class ItemsController {
     await itemsService.sortGroup(req, res, next);
   }
 
+  async changeOrderingItem(req, res, next) {
+    await itemsService.changeOrderingItem(req, res, next);
+  }
+
   async changeStatusItem(req, res, next) {
     await itemsService.changeStatusItem(req, res, next);
   }

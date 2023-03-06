@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const multer  = require('multer')
+const upload = multer({ dest: './../../public/img/self-img' })
 const { body, validationResult } = require("express-validator");
 const { messageItemHelper } = require("../../helpers/message");
 
@@ -35,9 +37,15 @@ router.post(
   body("name").isLength({ min: 5 }).withMessage(messageItemHelper.errorName),
   body("ordering").isNumeric().withMessage(messageItemHelper.errorOrdering),
   async (req, res, next) => {
-    itemController.addNewItem(req, res, next);
+    res.send(req.body);
+    await itemController.addNewItem(req, res, next);
   }
 );
+
+/* Change Status Items */
+router.get("/changeOrdering/:id/:ordering", async (req, res, next) => {
+  return  await itemController.changeOrderingItem(req, res, next);
+});
 
 /* SORT */
 router.get("/sort/:sortName/:sortType", (req, res, next) => {

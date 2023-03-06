@@ -70,8 +70,8 @@ const newArr = [
         <%}%>
     </div>
 
-    <!-- content -->
-    <form action="/admin/items/multipleAction" method="post" name="multipleForm" id = "multiForm">
+    <!-- content /admin/items/multipleAction-->
+    <form action="#" method="post" name="multipleForm" id = "multiForm">
         <div class="card card-info card-outline">
             <div class="card-header">
                 <h4 class="card-title">List</h4>
@@ -88,6 +88,7 @@ const newArr = [
                             </button>
                         </div>
                     </div>
+                    <button class="btn btn-success disabled" id="btnChangeOrder" style="background-color: #739c35; color: white; font-weight: 500;">Change Ordering</button>
                     <a href="/admin/items/form" class="btn btn-warning" style="background-color: #F0AD4E; color: white; font-weight: 500;">Add New</a>
                     <button type="button" class="btn btn-danger" onClick="changeMultiStatus('delete')" data-toggle="modal" data-target="#modal-danger">
                         <i class="fas fa-trash-alt"></i>Delete Multi
@@ -134,7 +135,7 @@ const newArr = [
                         <td><%= index + 1 %></td>
                         <td><%- value.name %></td>
                         <td id="status-<%= value._id %>" class="text-center position-relative"> <%- statusHelper(value.status, "items",value._id) %></td>
-                        <td class="text-center position-relative"><input  class="text-center ordering" type="text" value="<%= value.ordering %>" class="ordering"></td>
+                        <td id="order-<%= value._id %>" class="text-center position-relative"><input class="text-center ordering" name="ordering" type="number" id="<%= value._id %>" value="<%= value.ordering %>"></td>
                         <td class="text-center position-relative">
                             <span class="mr-1"><ion-icon name="person-circle-outline"></ion-icon></span>
                             <span><%= value.createdBy.userName %></span> <br>
@@ -173,18 +174,7 @@ const newArr = [
 
 </div>
 
-<!--<form action="/admin/items/multipleAction" method="post" name="multipleForm">-->
-<!--    <div class="row g-3 mb-4">-->
-<!--        <div class="col-auto">-->
-<!--            <select class="custom-select" aria-label="Default select example"  name="action">-->
-<!--                <option value="">Select action</option>-->
-<!--                <option value="active">Active</option>-->
-<!--                <option value="inactive">Inactive</option>-->
-<!--                <option value="delete">Delete</option>-->
-<!--                <option value="changeOrdering">Change ordering</option>-->
-<!--            </select>-->
-<!--        </div>-->
-<!--        <div class="col-auto"><button type="submit" class="btn btn-primary disabled" id="buttonSubmitAll">Submit</button></div>-->
+<form action="" id="orderForm" name="changeOrderingForm" method="get"></form>
 
 
 <form name="deletedForm" method="post" action="">
@@ -216,8 +206,11 @@ const newArr = [
         let submitAllForm = document.forms['multipleForm'];
         let btnCheckAll = $('#checkAll');
         let btnCheck    = $('input[name="checkItem"]');
+        let orderInput  = $('input[name="ordering"]');
         let btnSubmitAll = $('#buttonSubmitAll');
+        let btnChangeOrder = $('#btnChangeOrder');
         let isChecked;
+       let orderForm = $('#orderForm');
 
         $('#exampleModal').on('show.bs.modal', function (event) {
             let button = $(event.relatedTarget) // Button that triggered the modal
@@ -262,12 +255,20 @@ const newArr = [
             isChecked= ($('input[name="checkItem"]:checked').length);
             if(isChecked > 0)
             {
-                btnSubmitAll.removeClass("disabled");
+                btnChangeOrder.removeClass("disabled");
             }
             else{
-                btnSubmitAll.addClass(("disabled"));
+                btnChangeOrder.addClass(("disabled"));
             }
         }
+        
+
+        orderInput.change(function () {
+            const orderId = this.id;
+            const valueOrder = $(this).val();
+            const link = `/admin/items/changeOrdering/${orderId}/${valueOrder}`;
+            ajaxChangeOrdering(link,orderId,valueOrder)
+        })
 
     })
 

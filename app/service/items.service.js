@@ -52,6 +52,7 @@ class ItemsService {
       idUser: "test2",
       userName: "test2",
     };
+    res.send(req.body);
     switch (req.body.action) {
       case "active": {
         await itemsModel
@@ -165,6 +166,22 @@ class ItemsService {
     req.session.sortName = req.params.sortName;
     req.session.sortType = req.params.sortType;
     res.redirect("/admin/items");
+  }
+
+  async changeOrderingItem(req, res, next) {
+    const orderValue = req.params.ordering;
+    const modifiedBy = {
+      idUser: "test2",
+      userName: "test2",
+    };
+    await itemsModel
+        .findByIdAndUpdate(req.params.id, {
+          ordering: orderValue,
+          modifiedBy: modifiedBy,
+        })
+        .then((data) => {
+          res.send(data)
+        });
   }
 
   async changeStatusItem(req, res, next) {

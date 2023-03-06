@@ -10,13 +10,21 @@ function ajaxChangeStatus(link,type) {
             let name  = (status === "active")?`<i class="fas fa-check">`:`<i class="fas fa-ban">`;
             const child = `<a href="javascript:ajaxChangeStatus('${link}','${type}')" class="${className}" name="${tagName}">${name}</a>`;
             $(parent).html(child);
-            showPrettyAlert();
+            alertify.success('Change status success');
         }
     }, "json")
-
 }
 
-// inside function
-function showPrettyAlert() {
-    alertify.success('Change status success');
+function ajaxChangeOrdering(link,id,value) {
+    $.get(link,function (data) {
+        console.log(data);
+        if(data !== "") {
+            const {_id, ordering} = data;
+            const parent = `#order-${_id}`;
+            const child = `<input class="text-center ordering" name="ordering" type="number" id="${id}" value="${value}">`;
+            $(parent).html(child);
+            alertify.success('Change ordering success');
+        }
+    }, "json" )
 }
+

@@ -32,6 +32,10 @@ const itemsSchema = new Schema(
     modifiedBy: {
         idUser: { type: String, default: ''},
         userName: {type: String, default: ''},
+    },
+    image: {
+        type: String,
+        default: '',
     }
   },
   {

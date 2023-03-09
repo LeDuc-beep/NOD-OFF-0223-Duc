@@ -4,6 +4,7 @@ const router = express.Router();
 const homeRouter = require('./home');
 const itemsRouter = require('./items');
 const groupsRouter = require('./groups');
+const categoryRouter = require('./category');
 
 router.use((req,res,next) => {
     //changing layout backend

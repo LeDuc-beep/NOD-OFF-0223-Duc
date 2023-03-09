@@ -111,6 +111,7 @@ const newArr = [
                     <% include ./../../helpers/sort-list.ejs %>
                     <th>#</th>
                     <%- sortHelper('name','name',1,sortName,sortType) %>
+                    <th class="text-center">image</th>
                     <%- sortHelper('status(s)','status',1,sortName,sortType) %>
                     <%- sortHelper('Ordering','ordering',1,sortName,sortType) %>
                     <%- sortHelper('Created','createdAt',1,sortName,sortType) %>
@@ -134,6 +135,9 @@ const newArr = [
                         </td>
                         <td><%= index + 1 %></td>
                         <td><%- value.name %></td>
+                        <td class="text-center position-relative">
+                            <img class="img-size-64" src="/img/upload_image/<%= value.image %>" />
+                        </td>
                         <td id="status-<%= value._id %>" class="text-center position-relative"> <%- statusHelper(value.status, "items",value._id) %></td>
                         <td id="order-<%= value._id %>" class="text-center position-relative"><input class="text-center ordering" name="ordering" type="number" id="<%= value._id %>" value="<%= value.ordering %>"></td>
                         <td class="text-center position-relative">
@@ -261,7 +265,7 @@ const newArr = [
                 btnChangeOrder.addClass(("disabled"));
             }
         }
-        
+
 
         orderInput.change(function () {
             const orderId = this.id;

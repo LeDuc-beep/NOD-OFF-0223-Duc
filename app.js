@@ -9,6 +9,7 @@ const methodOverride = require('method-override')
 const flash = require('connect-flash');
 const session = require('express-session');
 const moment = require('moment');
+const multer = require('multer')
 
 const adminRouter = require("./app/routes/backend/index");
 const defaultRouter = require("./app/routes/default/index");
@@ -41,7 +42,6 @@ app.use(flash());
 app.use(methodOverride('_method'))
 app.use("/admin", adminRouter);
 app.use("/", defaultRouter);
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

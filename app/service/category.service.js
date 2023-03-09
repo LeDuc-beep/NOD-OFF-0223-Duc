@@ -2,9 +2,6 @@ const { body, validationResult } = require("express-validator");
 const itemsModel = require("../models/items");
 const helpers = require("../helpers/utils");
 const { messageItemHelper } = require("../helpers/message");
-const multer  = require('multer')
-const upload = multer({ dest: './uploads' })
-const fs = require('fs');
 // total item per page
 const totalItem = 4;
 // number pages display
@@ -21,7 +18,7 @@ let formSingleItem = {
 };
 class ItemsService {
   async updateById(req, res, next) {
-    const errors = validationResult(req.body);
+    const errors = validationResult(req);
     if (!errors.isEmpty()) {
       let errorArr = {};
       errors["errors"].forEach((error) => {
@@ -36,16 +33,6 @@ class ItemsService {
       });
     } else {
       let dataUpdated = req.body;
-      dataUpdated.image = req.body.old_image;
-      if(req.file.originalname) {
-        if(req.body.old_image !== req.originalname) {
-          fs.unlink(`app/public/img/upload_image/${req.body.old_image}`,function(err){
-            if(err) return console.log(err);
-          });
-          delete req.body.old_image;
-        }
-        dataUpdated.image = req.file.originalname;
-      }
       dataUpdated.modifiedBy = {
         idUser: "asd1w1213",
         userName: "sdada",
@@ -155,7 +142,7 @@ class ItemsService {
   }
 
   async addNewItem(req, res, next) {
-    const errors = validationResult(req.body);
+    const errors = validationResult(req);
     if (!errors.isEmpty()) {
       let errorArr = {};
       errors["errors"].forEach((error) => {
@@ -169,9 +156,6 @@ class ItemsService {
         link: `${pathRedirectView}/add`,
       });
     } else {
-      if(req.file !== undefined) {
-        req.body.image = req.file.originalname;
-      }
       await itemsModel.create(req.body);
       req.flash("info", messageItemHelper.flashAdd);
       res.redirect(`${pathRedirectView}`);

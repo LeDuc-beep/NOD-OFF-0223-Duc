@@ -1,11 +1,25 @@
 const express = require("express");
 const router = express.Router();
-const multer  = require('multer')
-const upload = multer({ dest: './../../public/img/self-img' })
 const { body, validationResult } = require("express-validator");
 const { messageItemHelper } = require("../../helpers/message");
 
 const itemController = require("../../controller/items.controller");
+
+const multer = require("multer");
+const path = require("path");
+
+
+// Configure multer
+const storageEngine = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, path.join(__dirname, '../../public', 'img/upload_image'))
+  },
+  filename: (req, file, callback) => {
+    callback(null, file.originalname)
+  }
+})
+
+const upload = multer({ storage: storageEngine })
 
 router.get('/test', (req,res,next) => {
   res.render('backend/pages/items/test');
@@ -16,6 +30,7 @@ router.put(
   "/update/:id",
   body("name").isLength({ min: 5 }).withMessage(messageItemHelper.errorName),
   body("ordering").isNumeric().withMessage(messageItemHelper.errorOrdering),
+    upload.single('upload_file'),
   (req, res, next) => {
     itemController.updateById(req, res, next);
   }
@@ -36,8 +51,9 @@ router.post(
   "/add",
   body("name").isLength({ min: 5 }).withMessage(messageItemHelper.errorName),
   body("ordering").isNumeric().withMessage(messageItemHelper.errorOrdering),
+    upload.single('upload_file'),
   async (req, res, next) => {
-    res.send(req.body);
+      // res.send([req.file, req.body]);
     await itemController.addNewItem(req, res, next);
   }
 );

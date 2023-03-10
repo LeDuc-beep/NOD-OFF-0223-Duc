@@ -1,0 +1,28 @@
+<% categoryBox = (name, obj, className, key = null)=> {
+%>
+    <select name="<%= name%>" class="<%= className%>" data-style="py-0" required="required">
+<%
+    if(key === null)
+        %>
+            <option value="">Select category</option>
+        <%
+
+    obj.forEach((value) => {
+        if(key !== null && key.toString() === value._id.toString()) {
+            %>
+                <option value="<%= value._id %>" selected="selected"><%= value.name%></option>
+            <%
+        }
+        else
+        {
+            %>
+                <option value="<%= value._id %>" ><%= value.name%></option>
+            <%
+        }
+%>
+<%
+    })
+%>
+    </select>
+<%
+} %>

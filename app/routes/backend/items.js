@@ -21,10 +21,6 @@ const storageEngine = multer.diskStorage({
 
 const upload = multer({ storage: storageEngine })
 
-router.get('/test', (req,res,next) => {
-  res.render('backend/pages/items/test');
-})
-
 /* Edit Items */
 router.put(
   "/update/:id",
@@ -36,15 +32,16 @@ router.put(
   }
 );
 
+/* DELETE SOFT Items */
+router.delete("/:id", (req, res, next) => {
+  itemController.deleteSoft(req, res, next);
+});
+
 /* Multiple Action */
 router.post("/multipleAction", (req, res, next) => {
   itemController.multipleAction(req, res, next);
 });
 
-/* DELETE SOFT Items */
-router.delete("/:id", (req, res, next) => {
-  itemController.deleteSoft(req, res, next);
-});
 
 /* ADD new items. */
 router.post(

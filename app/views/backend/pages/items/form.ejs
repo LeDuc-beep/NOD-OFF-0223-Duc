@@ -54,6 +54,11 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label>Category</label>
+                                <% include ./../../helpers/categoryBox.ejs %>
+                                <% categoryBox("category",listCategory,"selectpicker form-control",item.category) %>
+                            </div>
+                            <div class="form-group">
                                 <label>Status</label>
                                 <% include ./../../helpers/statusBox.ejs %>
                                 <% selectBox("status",arraySelectStatusBox,"selectpicker form-control",item.status) %>
@@ -80,7 +85,7 @@
                                  if(item.image !== ""){
                             %>
                                 <img class="img-size-64" src="/img/upload_image/<%= item.image %>" >
-                                <input type="text" name="old_image" value="<%= item.image %>">
+                                <input type="hidden" name="old_image" value="<%= item.image %>">
                             <%
                                  }
                             %>

@@ -1,5 +1,6 @@
 const { body, validationResult } = require("express-validator");
 const itemsModel = require("../models/items");
+const categoryModel = require("../models/category");
 const helpers = require("../helpers/utils");
 const { messageItemHelper } = require("../helpers/message");
 const multer  = require('multer')
@@ -279,6 +280,7 @@ class ItemsService {
   async getFormItem(req, res, next) {
     let link;
     let message = req.flash("info");
+    let listCategory = await categoryModel.find({}).lean().select({_id: 1, name: 1});
     if (req.params.id !== undefined) {
       link = `${pathRedirectView}/update/${req.params.id}?_method=PUT`;
       await itemsModel
@@ -290,6 +292,7 @@ class ItemsService {
             item: data,
             link,
             message,
+            listCategory,
           });
         });
     } else {
@@ -299,6 +302,7 @@ class ItemsService {
         item: formSingleItem,
         link,
         message,
+        listCategory,
       });
     }
   }
@@ -325,7 +329,7 @@ class ItemsService {
         .sort(sortCondition)
         .skip((pagination.currentPages - 1) * pagination.totalItemsPerpage)
         .limit(pagination.totalItemsPerpage)
-        .lean(),
+        .lean().populate('category'),
       await itemsModel.count(whereQuery),
     ])
       .then(([items, countItems]) => {

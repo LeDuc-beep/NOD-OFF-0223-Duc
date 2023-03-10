@@ -36,6 +36,10 @@ const itemsSchema = new Schema(
     image: {
         type: String,
         default: '',
+    },
+    category: {
+        type: Types.ObjectId,
+        ref: 'category',
     }
   },
   {

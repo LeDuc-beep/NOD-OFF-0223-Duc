@@ -1,4 +1,4 @@
-let categoryService = require("../service/items.service");
+let categoryService = require("../service/category.service");
 class categoryController {
   async updateById(req, res, next) {
     await categoryService.updateById(req, res, next);

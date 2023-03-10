@@ -1,5 +1,8 @@
-import mongoose, {Schema} from "mongoose";
-import mongooseDelete from "mongoose-delete";
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const mongooseDelete = require("mongoose-delete");
+const slug = require('mongoose-slug-generator');
+mongoose.plugin(slug);
 
 const categorySchema = new Schema({
    "name" : {
@@ -8,7 +11,26 @@ const categorySchema = new Schema({
    },
     "slug": {
        type: String,
+        slug: "name",
+    },
+    status: {
+        type: String,
         default: '',
+    },
+    ordering: {
+        type: Number,
+        default: 0,
+    },
+    createdBy: {
+        idUser: {
+            type: String,
+            default: '',
+        },
+        userName: { type: String, default: '' },
+    },
+    modifiedBy: {
+        idUser: { type: String, default: ''},
+        userName: {type: String, default: ''},
     }
 }, {
     timestamps: true,

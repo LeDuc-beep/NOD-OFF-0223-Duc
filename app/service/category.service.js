@@ -1,5 +1,5 @@
 const { body, validationResult } = require("express-validator");
-const itemsModel = require("../models/items");
+const categoryModel = require("../models/category");
 const helpers = require("../helpers/utils");
 const { messageItemHelper } = require("../helpers/message");
 // total item per page
@@ -7,9 +7,9 @@ const totalItem = 4;
 // number pages display
 const pageRange = 3;
 // Path view
-const pathView = "backend/pages/items";
+const pathView = "backend/pages/category";
 // Redirect view
-const pathRedirectView = "/admin/items";
+const pathRedirectView = "/admin/category";
 // Form Single Item
 let formSingleItem = {
   name: "",
@@ -18,18 +18,18 @@ let formSingleItem = {
 };
 class ItemsService {
   async updateById(req, res, next) {
-    const errors = validationResult(req);
+    const errors = validationResult(req.body);
     if (!errors.isEmpty()) {
       let errorArr = {};
       errors["errors"].forEach((error) => {
         errorArr[`${error.param}`] = error.msg;
       });
-      res.render(`backend/pages/items/form`, {
+      res.render(`backend/pages/category/form`, {
         item: req.body,
         errorArr,
         message: "",
         title: "Edit",
-        link: `/admin/items/update/${req.params.id}?_method=PUT`,
+        link: `/admin/category/update/${req.params.id}?_method=PUT`,
       });
     } else {
       let dataUpdated = req.body;
@@ -37,11 +37,11 @@ class ItemsService {
         idUser: "asd1w1213",
         userName: "sdada",
       };
-      await itemsModel
+      await categoryModel
         .findByIdAndUpdate(req.params.id, dataUpdated)
         .then(() => {
           req.flash("info", messageItemHelper.flashUpdate);
-          res.redirect("/admin/items");
+          res.redirect("/admin/category");
         })
         .catch(next);
     }
@@ -55,7 +55,7 @@ class ItemsService {
     res.send(req.body);
     switch (req.body.action) {
       case "active": {
-        await itemsModel
+        await categoryModel
           .updateMany(
             { _id: { $in: req.body.checkItem } },
             {
@@ -74,7 +74,7 @@ class ItemsService {
         break;
       }
       case "inactive": {
-        await itemsModel
+        await categoryModel
           .updateMany(
             { _id: { $in: req.body.checkItem } },
             {
@@ -93,7 +93,7 @@ class ItemsService {
         break;
       }
       case "delete": {
-        await itemsModel
+        await categoryModel
           .delete({ _id: { $in: req.body.checkItem } })
           .then((data) => {
             req.flash(
@@ -114,7 +114,7 @@ class ItemsService {
           ? req.body.ordering
           : [req.body.ordering];
         for (const value of listID) {
-          await itemsModel.findByIdAndUpdate(value, {
+          await categoryModel.findByIdAndUpdate(value, {
             ordering: parseInt(listOrder[index]),
             modifiedBy: modifiedBy,
           });
@@ -135,7 +135,7 @@ class ItemsService {
   }
 
   async deleteSoft(req, res, next) {
-    await itemsModel.deleteById(req.params.id).then(() => {
+    await categoryModel.deleteById(req.params.id).then(() => {
       req.flash("info", messageItemHelper.flashDelete);
       res.redirect("back");
     });
@@ -156,7 +156,7 @@ class ItemsService {
         link: `${pathRedirectView}/add`,
       });
     } else {
-      await itemsModel.create(req.body);
+      await categoryModel.create(req.body);
       req.flash("info", messageItemHelper.flashAdd);
       res.redirect(`${pathRedirectView}`);
     }
@@ -165,7 +165,7 @@ class ItemsService {
   async sortGroup(req, res, next) {
     req.session.sortName = req.params.sortName;
     req.session.sortType = req.params.sortType;
-    res.redirect("/admin/items");
+    res.redirect("/admin/category");
   }
 
   async changeOrderingItem(req, res, next) {
@@ -174,7 +174,7 @@ class ItemsService {
       idUser: "test2",
       userName: "test2",
     };
-    await itemsModel
+    await categoryModel
         .findByIdAndUpdate(req.params.id, {
           ordering: orderValue,
           modifiedBy: modifiedBy,
@@ -190,7 +190,7 @@ class ItemsService {
       idUser: "test2",
       userName: "test2",
     };
-     await itemsModel
+     await categoryModel
       .findByIdAndUpdate(req.params.id, {
         status: statusChange,
         modifiedBy: modifiedBy,
@@ -203,7 +203,7 @@ class ItemsService {
   async getItemDependStatus(req, res, next) {
     let statusFilter = await helpers.createFilterStatus(
       req.params.status,
-      itemsModel
+      categoryModel
     );
     let checkStatus = req.params.status !== "all" ? req.params.status : "";
     let sortName = req.session.sortName ? req.session.sortName : "ordering";
@@ -230,13 +230,13 @@ class ItemsService {
       }
     }
     Promise.all([
-      await itemsModel
+      await categoryModel
         .find(whereQuery)
         .sort({ ordering: 1 })
         .skip((pagination.currentPages - 1) * pagination.totalItemsPerpage)
         .limit(pagination.totalItemsPerpage)
         .lean(),
-      await itemsModel.count(whereQuery),
+      await categoryModel.count(whereQuery),
     ])
       .then(([items, countItems]) => {
         let searchValue = req.query.search ? req.query.search : "";
@@ -265,7 +265,7 @@ class ItemsService {
     let message = req.flash("info");
     if (req.params.id !== undefined) {
       link = `${pathRedirectView}/update/${req.params.id}?_method=PUT`;
-      await itemsModel
+      await categoryModel
         .findById(req.params.id)
         .lean()
         .then((data) => {
@@ -288,7 +288,7 @@ class ItemsService {
   }
 
   async getHomePage(req, res, next) {
-    let statusFilter = await helpers.createFilterStatus("all", itemsModel);
+    let statusFilter = await helpers.createFilterStatus("all", categoryModel);
     let sortName = req.session.sortName ? req.session.sortName : "ordering";
     let sortType = req.session.sortType ? parseInt(req.session.sortType) : 1;
     let sortCondition = {};
@@ -304,13 +304,13 @@ class ItemsService {
       };
     }
     Promise.all([
-      await itemsModel
+      await categoryModel
         .find(whereQuery)
         .sort(sortCondition)
         .skip((pagination.currentPages - 1) * pagination.totalItemsPerpage)
         .limit(pagination.totalItemsPerpage)
         .lean(),
-      await itemsModel.count(whereQuery),
+      await categoryModel.count(whereQuery),
     ])
       .then(([items, countItems]) => {
         let searchValue = req.query.search ? req.query.search : "";

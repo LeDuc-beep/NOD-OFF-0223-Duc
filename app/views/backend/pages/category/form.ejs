@@ -1,0 +1,88 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1><%= title %> Product</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active"><%= title %> Product</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<% arraySelectStatusBox = [
+    {
+        name: "Select Status",
+        value: ""
+    },
+    {
+        name: "Active",
+        value: "active"
+    },
+    {
+        name: "Inactive",
+        value: "inactive"
+    }
+] %>
+<% if(Object.keys(message).length > 0 )  {%>
+    <h4 class="mb-3 d-block bg-gradient-green pt-2 pb-2 pr-2 "><%= message %></h4>
+<%}%>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Form</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form action="<%= link %>" method="post"  >
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Name *</label>
+                                <input name="name" type="text" class="form-control" placeholder="Enter Name"  required value="<%= item.name%>">
+                                <div class="help-block with-errors text-red m-2">
+                                    <%= (typeof errorArr !== "undefined")?errorArr.name:"" %>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <% include ./../../helpers/statusBox.ejs %>
+                                <% selectBox("status",arraySelectStatusBox,"selectpicker form-control",item.status) %>
+                            </div>
+                            <div class="form-group">
+                                <label>Ordering</label>
+                                <input value="<%= item.ordering%>" type="text" class="form-control" placeholder="Enter Ordering"
+                                       name="ordering"  required>
+                                <div class="help-block with-errors text-red m-2">
+                                    <%= (typeof errorArr !== "undefined")?errorArr.ordering:"" %>
+                                </div>
+                            </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary mr-2"><%= title%> Category</button>
+                            <button type="reset" class="btn btn-danger">Reset</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>

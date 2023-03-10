@@ -37,7 +37,7 @@ class ItemsService {
     } else {
       let dataUpdated = req.body;
       dataUpdated.image = req.body.old_image;
-      if(req.file.originalname) {
+      if( req.file !== undefined) {
         if(req.body.old_image !== req.originalname) {
           fs.unlink(`app/public/img/upload_image/${req.body.old_image}`,function(err){
             if(err) return console.log(err);

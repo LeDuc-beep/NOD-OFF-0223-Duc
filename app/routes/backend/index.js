@@ -12,6 +12,9 @@ router.use((req,res,next) => {
     next();
 })
 
+/* GET category page. */
+router.use("/category",categoryRouter);
+
 /* GET group page*/
 router.use("/groups",groupsRouter);
 

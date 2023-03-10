@@ -1,0 +1,253 @@
+<div class="">
+    <div class="row mb-2 card-body">
+        <div class="col-sm-6">
+            <h1 class="m-0">Danh mục sản phẩm</h1>
+        </div>
+    </div>
+    <div class="card card-info ml-2 card-outline">
+        <div class="card-header">
+            <h6 class="card-title">Search & Filter</h6>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row justify-content-between">
+
+                <!--            status all active inactive -->
+                <div class="mb-1">
+                    <div class="btn-search">
+                        <% include ./../../helpers/filter-status.ejs %>
+                        <% filterStatusHelper(statusFilter, searchValue,"category") %>
+                    </div>
+                </div>
+
+                <div class="mb-1">
+                    <form action="/admin/category<%= statusPath %>" method="get" name="listItemSearch">
+                        <div class="input-group">
+                            <input type="text"  id="form1" class="form-control form-control-sm"  name="search" value="<%= searchValue %>" placeholder="Search for..." style="min-width: 300px">
+                            <div class="input-group-append">
+                                <a type="button" class="btn btn-sm btn-danger"   href="/admin/category<%= statusPath %>">Clear</a>
+                                <button type="submit" class="btn btn-sm btn-info" id="btn-search">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--message thong bao -->
+    <div>
+        <% if(Object.keys(message).length > 0)  {%>
+            <h4 class="mb-3 d-block bg-gradient-green pt-2 pb-2 pr-2 "><%= message %></h4>
+        <%}%>
+    </div>
+
+    <!-- content /admin/items/multipleAction-->
+    <form action="#" method="post" name="multipleForm" id = "multiForm">
+        <div class="card card-info card-outline">
+            <div class="card-header">
+                <h4 class="card-title">List</h4>
+                <div class="card-tools">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-info" data-toggle="dropdown" aria-expanded="false">Change Status</button>
+                        <div class="dropdown-menu" role="menu" >
+                            <button type="button" onClick="javascript:changeMultiStatus('active')" class="dropdown-item" data-toggle="modal" data-target="#modal-success">
+                                Change to Active
+                            </button>
+                            <div class="dropdown-divider"></div>
+                            <button type="button" onClick="changeMultiStatus('inactive')" class="dropdown-item" data-toggle="modal" data-target="#modal-danger">
+                                Change to Inactive
+                            </button>
+                        </div>
+                    </div>
+                    <button class="btn btn-success disabled" id="btnChangeOrder" style="background-color: #739c35; color: white; font-weight: 500;">Change Ordering</button>
+                    <a href="/admin/category/form" class="btn btn-warning" style="background-color: #F0AD4E; color: white; font-weight: 500;">Add New</a>
+                    <button type="button" class="btn btn-danger" onClick="changeMultiStatus('delete')" data-toggle="modal" data-target="#modal-danger">
+                        <i class="fas fa-trash-alt"></i>Delete Multi
+                    </button>
+                </div>
+                <input type="hidden" name="action" id="inputHiddenAll" value="" >
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- List Content -->
+
+            <table class="table table-bordered table-hover text-nowrap btn-table mb-0">
+                <thead>
+                <tr>
+                    <th class="text-center">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="checkbox-input" id="checkAll">
+                        </div>
+                    </th>
+                    <% include ./../../helpers/sort-list.ejs %>
+                    <th>#</th>
+                    <%- sortHelper('name','name',1,sortName,sortType) %>
+                    <%- sortHelper('status(s)','status',1,sortName,sortType) %>
+                    <%- sortHelper('Ordering','ordering',1,sortName,sortType) %>
+                    <%- sortHelper('Created','createdAt',1,sortName,sortType) %>
+                    <%- sortHelper('Modified','updatedAt',1,sortName,sortType) %>
+                    <th class="text-center">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% include ./../../helpers/status.ejs %>
+                <% items.forEach((value,index) => {
+                    if(searchValue !== "") {
+                        const regex = new RegExp(searchValue,"ig");
+                        value.name = value.name.replaceAll(regex,`<span class="text-primary">${searchValue}</span>`)
+                    }
+                %>
+                    <tr>
+                        <td  class="text-center">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="checkbox-input" name="checkItem" value="<%= value._id%>">
+                            </div>
+                        </td>
+                        <td><%= index + 1 %></td>
+                        <td><%- value.name %></td>
+                        <td id="status-<%= value._id %>" class="text-center position-relative"> <%- statusHelper(value.status, "category",value._id) %></td>
+                        <td id="order-<%= value._id %>" class="text-center position-relative"><input class="text-center ordering" name="ordering" type="number" id="<%= value._id %>" value="<%= value.ordering %>"></td>
+                        <td class="text-center position-relative">
+                            <span class="mr-1"><ion-icon name="person-circle-outline"></ion-icon></span>
+                            <span><%= value.createdBy.userName %></span> <br>
+                            <span class="mr-1"><ion-icon name="timer-outline"></ion-icon></span
+                            <span><%= moment(value.createdAt).format('DD/MM/YYYY | h:mm') %></span>
+                        </td>
+                        <td class="text-center position-relative">
+                            <span class="mr-1"><ion-icon name="person-circle-outline"></ion-icon></span>
+                            <span><%= value.modifiedBy.userName %></span> <br>
+                            <span class="mr-1"><ion-icon name="timer-outline"></ion-icon></span
+                            <span><%= moment(value.updatedAt).format('DD/MM/YYYY | h:mm') %></span>
+                        </td>
+                        <td class="text-center p-3">
+                            <a href="/admin/category/form/<%= value._id %>" class="rounded-circle btn btn-sm btn-info " title="Edit">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <button type="button" class="rounded-circle btn btn-sm btn-danger">
+                                <a id="aa" data-id = "<%= value._id %>"  title="" data-original-title="Delete"
+                                   href="#" data-bs-toggle="modal"  data-bs-target="#exampleModal"
+                                   class="text-white">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </button>
+                        </td>
+                    </tr>
+                <% })  %>
+                </tbody>
+            </table>
+            <div class="col-12">
+                <% include ./../../helpers/pagination.ejs %>
+                <%- paginationHelper(pagination,"items",searchValue,statusPath) %>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+
+<form action="" id="orderForm" name="changeOrderingForm" method="get"></form>
+
+
+<form name="deletedForm" method="post" action="">
+</form>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Item</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure want to delete this ITEM?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="buttonDeleted" class="btn btn-primary">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let deletedID;
+        let btnDeleted = document.getElementById('buttonDeleted');
+        let deleteForm = document.forms['deletedForm'];
+        let submitAllForm = document.forms['multipleForm'];
+        let btnCheckAll = $('#checkAll');
+        let btnCheck    = $('input[name="checkItem"]');
+        let orderInput  = $('input[name="ordering"]');
+        let btnSubmitAll = $('#buttonSubmitAll');
+        let btnChangeOrder = $('#btnChangeOrder');
+        let isChecked;
+       let orderForm = $('#orderForm');
+
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            let button = $(event.relatedTarget) // Button that triggered the modal
+            deletedID = button.data('id');
+        });
+
+        btnDeleted.onclick = () => {
+            deleteForm.action = '/admin/category/' + deletedID + '?_method=DELETE';
+            deleteForm.submit();
+        }
+
+        // button check all has been checked
+        btnCheckAll.change(function (){
+            isChecked = btnCheckAll.prop('checked');
+            if(isChecked === false){
+                $('input[class="ordering"]').removeAttr('name');
+            }
+            else {
+                $('input[class="ordering"]').attr('name', 'ordering');
+            }
+            btnCheck.prop('checked',isChecked);
+            disableSubmit();
+
+        })
+
+        btnCheck.change(function () {
+            let orderCheck = $(this).is(':checked');
+            if(orderCheck === true)
+            {
+                console.log("===");
+                $(this).parent('div').parent("td").parent("tr").find('.ordering').attr('name','ordering');
+            }
+            else {
+                $(this).parent('div').parent("td").parent("tr").find('.ordering').removeAttr('name');
+            }
+            isChecked = ($('input[name = "checkItem"]:checked').length === btnCheck.length);
+            btnCheckAll.prop('checked',isChecked);
+            disableSubmit();
+        })
+
+        function disableSubmit() {
+            isChecked= ($('input[name="checkItem"]:checked').length);
+            if(isChecked > 0)
+            {
+                btnChangeOrder.removeClass("disabled");
+            }
+            else{
+                btnChangeOrder.addClass(("disabled"));
+            }
+        }
+
+
+        orderInput.change(function () {
+            const orderId = this.id;
+            const valueOrder = $(this).val();
+            const link = `/admin/category/changeOrdering/${orderId}/${valueOrder}`;
+            ajaxChangeOrdering(link,orderId,valueOrder)
+        })
+
+    })
+
+    function changeMultiStatus(status) {
+        let i = document.getElementById('inputHiddenAll').value = status;
+        document.getElementById('multiForm').submit();
+    }
+</script>

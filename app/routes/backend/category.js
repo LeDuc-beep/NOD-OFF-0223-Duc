@@ -4,12 +4,12 @@ const {body, validationResult} = require("express-validator");
 const {messageItemHelper} = require("../../helpers/message");
 
 let categoryController = require('../../controller/category.controller');
+const itemController = require("../../controller/items.controller");
 /* Edit Items */
 router.put(
     "/update/:id",
     body('name').isLength({min: 5}).withMessage(messageItemHelper.errorName),
     body('ordering').isNumeric().withMessage(messageItemHelper.errorOrdering),
-    body('groupAcp').notEmpty().withMessage(messageItemHelper.errorGroupAcp),
     (req,res,next) => { categoryController.updateById(req,res,next) });
 
 /* Multiple Action */
@@ -25,8 +25,12 @@ router.post(
     "/add",
     body('name').isLength({min: 5}).withMessage(messageItemHelper.errorName),
     body('ordering').isNumeric().withMessage(messageItemHelper.errorOrdering),
-    body('groupAcp').notEmpty().withMessage(messageItemHelper.errorGroupAcp),
     async (req, res,next) => { categoryController.addNewItem(req,res,next) });
+
+/* Change Status Items */
+router.get("/changeOrdering/:id/:ordering", async (req, res, next) => {
+    return  await categoryController.changeOrderingItem(req, res, next);
+});
 
 /* Change Group Acp*/
 router.get("/:id/changeAcp/:acp",

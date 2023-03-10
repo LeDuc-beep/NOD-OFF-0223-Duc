@@ -252,7 +252,7 @@ class ItemsService {
         .sort({ ordering: 1 })
         .skip((pagination.currentPages - 1) * pagination.totalItemsPerpage)
         .limit(pagination.totalItemsPerpage)
-        .lean(),
+        .lean().populate('category'),
       await itemsModel.count(whereQuery),
     ])
       .then(([items, countItems]) => {

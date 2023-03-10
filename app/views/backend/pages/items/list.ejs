@@ -123,6 +123,7 @@ const newArr = [
                 <tbody>
                 <% include ./../../helpers/status.ejs %>
                 <% items.forEach((value,index) => {
+                    value.name=(value.name.length < 20)?value.name:(value.name.slice(0,20)+"...")
                     if(searchValue !== "") {
                         const regex = new RegExp(searchValue,"ig");
                         value.name = value.name.replaceAll(regex,`<span class="text-primary">${searchValue}</span>`)
@@ -135,7 +136,7 @@ const newArr = [
                             </div>
                         </td>
                         <td><%= index + 1 %></td>
-                        <td class="text-center position-relative" ><%- value.name=(value.name.length < 20)?value.name:(value.name.slice(0,20)+"...") %></td>
+                        <td class="text-center position-relative" ><%- value.name %></td>
                         <td class="text-center position-relative">
                             <img class="img-size-64" src="/img/upload_image/<%= value.image %>" />
                         </td>
